@@ -1,0 +1,61 @@
+﻿@model ProjectX.Application.Usecases.Package.PackageUpdateRequest
+
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">PACKAGE</center>
+
+    <a asp-action="IndexPackage" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Update Package
+                </div>
+                <form asp-action="UpdatePackage" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <div class="input-data">
+                                <select id="drpEmpList" class="control" asp-for="ProjectID" asp-items="@(new SelectList(ViewBag.project, "Id", "Name"))">
+                                    <option value="">--Projects--</option>
+                                </select>
+                                <span asp-validation-for="ProjectID" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Version" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Version">Version</label>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="input-data">
+                            <input asp-for="Active" type="checkbox">
+                            <label asp-for="Active">Active</label>
+                        </div>
+                        <div class="input-data">
+                            <label asp-for="LastModifiedBy" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">ModifiedBy</label>
+                            <input asp-for="LastModifiedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                        <div class="input-data">
+                            <input type="submit" value="submit" class="sbmit" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

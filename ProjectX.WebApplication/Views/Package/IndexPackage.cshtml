@@ -1,0 +1,180 @@
+﻿@model IEnumerable<ProjectX.Application.Usecases.Package.GetPackageResponse>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .btn-3 {
+            color: #fff;
+            padding: 6px 14px;
+            font-weight: 600;
+            font-size: 10px;
+            border-radius: 30px;
+            background: red;
+        }
+
+        .btn-4 {
+            color: #fff;
+            padding: 6px 22px;
+            font-weight: 600;
+            font-size: 10px;
+            border-radius: 30px;
+            background: blue;
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+    </style>
+    <script src="~/js/sweetalert.js"></script>
+</head>
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">PACKAGE</center>
+
+    <div>
+        <a asp-action="CreatePackage" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;" class="btn btn-primary">Create New</a>
+    </div>
+    <div class="table-responsive">
+        <table class=" display  table-striped " id="MyTable">
+            <thead>
+                <tr>
+                    <th>S.NO</th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Version
+                    </th>
+                    <th>
+                        Active
+                    </th>
+                    <th>
+                        CreatedOn
+                    </th>
+                    <th>
+                        CreatedBy
+                    </th>
+                    <th>
+                        ModifiedOn
+                    </th>
+                    <th>
+                        ModifiedBy
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@i</td>@{
+                            i++;
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Version)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastModifiedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastModifiedBy)
+                        </td>
+                       
+                        <td>
+                            <div>
+                                <a asp-action="UpdatePackage" asp-route-packageID="@item.ID" class="btn btn-4">Edit</a>||
+
+                            </div>
+                            <div>
+                                <form asp-action="DeletePackage" asp-route-packageID="@item.ID" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                    <input type="hidden" asp-for="@item.ID" />
+                                    <input type="submit" value="Delete" class="btn btn-3" />
+                                </form>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+@try
+{
+    if (TempData["AddedPackage"] != null)
+    {
+        <script>
+            swal("", "Package Added Successfully", "success");
+        </script>
+    }
+    if (TempData["Failed"] != null)
+    {
+        <script>
+            swal("", "Package data Failed", "error");
+        </script>
+    }
+    if (TempData["EditedPackage"] != null)
+    {
+        <script>
+            swal("", "Package Updated Successfully", "success");
+        </script>
+    }
+    if (TempData["DeletePackage"] != null)
+    {
+        <script>
+            swal("", "Package Deleted Successfully", "success");
+        </script>
+    }
+}
+catch
+{
+
+}
+<script>
+    jQueryAjaxDelete = form => {
+        if (confirm('Are you sure to delete this record ?')) {
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url: form.action,
+                    data: new FormData(form),
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        $('#GetUser').html(res.html);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+        //prevent default form submit event
+        return false;
+    }
+</script>

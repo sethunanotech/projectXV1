@@ -1,0 +1,94 @@
+﻿@model ProjectX.Application.Usecases.Entity.EntityUpdateRequest
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Entity</center>
+
+    <a asp-action="IndexEntity" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Update Entity
+                </div>
+                <form asp-action="UpdateEntity" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-row">
+                        <div class="input-data">
+                            <select id="drpEmpList" class="control" asp-for="ProjectID" asp-items="@(new SelectList(ViewBag.project, "Id", "Name"))">
+                                <option value="">--Projects--</option>
+                            </select>
+                            <span asp-validation-for="ProjectID" class="text-danger"></span>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Title" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Title">Title</label>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="input-data">
+                            <input asp-for="Active" type="checkbox" style="width: 28px;margin-top:3px; margin-left:10px">
+
+                            <label asp-for="Active">Active</label>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="DisplayName" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="DisplayName">DisplayName</label>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <input asp-for="File" type="file" required>
+                            <div class="underline"></div>
+                            <label asp-for="File" class="file" style="font-size: 14px;">Thumbnail</label>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Argument1" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Argument1">Argument1</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-data">
+                            <input asp-for="Argument2" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Argument2">Argument2</label>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Argument3" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Argument3">Argument3</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="input-data">
+                            <label asp-for="LastModifiedBy" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">ModifiedBy</label>
+                            <input asp-for="LastModifiedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                        <div class="input-data">
+                            <input type="submit" value="submit" class="sbmit" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿@model ProjectX.Application.Usecases.ProjectUsers.ProjectUserAddRequest
+
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">PROJECT USER</center>
+
+    <a asp-action="IndexProjectUser" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Create ProjectUser
+
+                </div>
+                <form asp-action="CreateProjectUser" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+
+                        <div class="input-data">
+                            <select id="drpEmpList" class="projectList" asp-for="ProjectID" asp-items="@(new SelectList(ViewBag.project, "Id", "Name"))">
+                                <option value="">--Projects--</option>
+                            </select>
+                            <span asp-validation-for="ProjectID" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-data">
+                            <select id="drpEmpList" class="userList" asp-for="UserID" asp-items="@(new SelectList(""))">
+                                <option value="">--User--</option>
+                            </select>
+                            <span asp-validation-for="UserID" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-data">
+                            <label asp-for="CreatedBy" style="margin-bottom:29px!important;font-size: 14px;
+	                    	color: #3498db;">CreatedBy</label>
+                            <input asp-for="CreatedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                        <div class="input-data" style="text-align:center">
+                            <button type="submit" value="submit" class="sbmit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".projectList").change(function () {
+                projectID = $(this).val()
+                $.ajax({
+                    type: 'post',
+                    url: '/ProjectUser/GetBindedUserName?projectID=' + projectID,
+                    success: function (response) {
+                        $(".userList").empty();
+                        $(".userList").append(response);
+                        // $.each(response, function (index, item) {
+                        //     $('.userList').append($("<option></option>").attr("value", item.Id).text(item.Name));
+                        // });
+                        console.log(response)
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

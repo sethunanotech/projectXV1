@@ -1,0 +1,11 @@
+﻿@model ProjectX.Application.Usecases.ProjectUsers.ProjectUserAddRequest
+<option value="">Select User</option>
+@if (ViewBag.User != null)
+{
+    foreach (var item in ViewBag.User)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+}
+
+

@@ -1,0 +1,86 @@
+﻿@model ProjectX.Application.Usecases.ProjectUsers.ProjectUserUpdateRequest
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">PROJECT USER</center>
+
+    <a asp-action="IndexProjectUser" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <link href="~/css/Webform.css" rel="stylesheet" />
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Update Package
+                </div>
+                <form asp-action="EditProjectUser" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <div class="input-data">
+                                <label asp-for="ProjectID" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">Project</label>
+                                <select id="drpEmpList" class="projectList" asp-for="ProjectID" asp-items="@(new SelectList(ViewBag.project, "Id", "Name"))">
+                                    <option value="">--Projects</option>
+                                </select>
+                                <span asp-validation-for="ProjectID" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="input-data">
+                            <label asp-for="UserID" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">User</label>
+                            <select id="drpEmpList" class="userList" asp-for="UserID" style="width=100%;">
+                                @if (ViewBag.User != null)
+                                {
+                                    foreach (var item in ViewBag.User)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="UserID" class="text-danger"></span>
+                        </div>
+                    </div>                    
+                    <div class="form-row" style="margin-left: 2.8%;">
+                        <div class="input-data">
+                            <label asp-for="LastModifiedBy" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">ModifiedBy</label>
+                            <input asp-for="LastModifiedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                        <div class="input-data">
+                            <input type="submit" value="submit" class="sbmit" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".projectList").change(function () {
+                projectID = $(this).val()
+                $.ajax({
+                    type: 'post',
+                    url: '/ProjectUser/GetBindedUserName?projectID=' + projectID,
+                    success: function (response) {
+                        $(".userList").empty();
+                        $(".userList").append(response);
+                        // $.each(response, function (index, item) {
+                        //     $('.userList').append($("<option></option>").attr("value", item.Id).text(item.Name));
+                        // });
+                        console.log(response)
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

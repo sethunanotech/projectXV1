@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <title>Admin</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a asp-action="Index" asp-controller="Dashboard" class="brand text-decoration-none">
+            <i class='bx bx-id-card'></i>
+            <span class="text">Download Manager</span>
+        </a>
+        <ul class="side-menu top p-0">
+            <li>
+                <a asp-action="Index" asp-controller="Dashboard" class="text-decoration-none">
+                    <i class='bx bxs-bar-chart-alt-2'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexUser" asp-controller="User" class="text-decoration-none">
+                    <i class='bx bxs-user'></i>
+                    <span class="text">User</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexProject" asp-controller="Project" class="text-decoration-none">
+                    <i class='bx bx-desktop'></i>
+                    <span class="text">Project</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexClient" asp-controller="Client" class="text-decoration-none">
+                    <i class='bx bx-user-circle'></i>
+                    <span class="text">Client</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexPackage" asp-controller="Package" class="text-decoration-none">
+                    <i class='bx bxs-package'></i>
+                    <span class="text">Package</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexEntity" asp-controller="Entity" class="text-decoration-none">
+                    <i class='bx bxs-data'></i>                   
+                    <span class="text">Entity</span>
+                </a>
+            </li>
+            <li>
+                <a asp-action="IndexProjectUser" asp-controller="ProjectUser" class="text-decoration-none">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">ProjectUser</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu p-0">
+
+            <li>
+                <a asp-action="Login" asp-controller="Home" id="logout" class="text-decoration-none">
+                    <i class='bx bxs-log-out-circle text-danger'></i>
+                    <span class="text-danger">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            @*             <a href="#" class="nav-link">Categories</a>
+            *@           @*  <form action="#">
+            <div class="form-input">
+            <input type="search" placeholder="Search...">
+            <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+            </form> *@
+            @*  <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+            <i class='bx bxs-bell'></i>
+            <span class="num">8</span>
+            </a> *@
+
+            <label>Welcome @ViewBag.UserName!</label>
+
+            <a href="#" class="profile">
+                <img src="~/images/icons8-admin-48.png" />
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+        <!-- MAIN -->
+        <main>
+            @RenderBody()
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#logout').click(function () {
+                console.log("HI");
+                function preventBack() { window.history.forward(); }
+                setTimeout("preventBack()", 0);
+                window.onunload = function () { null };
+            });
+
+            $('#MyTable').DataTable(
+                {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+        });
+    </script>
+    <script src="~/js/sweetalert.js"></script>
+
+</body>
+</html>

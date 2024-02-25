@@ -1,0 +1,58 @@
+﻿@model ProjectX.Application.Usecases.Projects.ProjectUpdateRequest
+
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <a asp-action="IndexProject" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Update Project
+                </div>
+                <form asp-action="UpdateProject" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <select id="drpEmpList" class="control" asp-for="ClientID" asp-items="@(new SelectList(ViewBag.client, "Id", "Name"))">
+                                <option value="">-- Select Client--</option>
+                            </select>
+                            <span asp-validation-for="ClientID" class="text-danger"></span>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Title" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Title">Title</label>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="SecretCode" />
+                    <div class="form-row">
+                        <div class="input-data">
+                            <input asp-for="Active" type="checkbox" style="width: 28px;margin-top:3px; margin-left:10px">
+                            <label asp-for="Active">Active</label>
+                        </div>
+                        <div class="input-data">
+                            <label asp-for="LastModifiedBy" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">ModifiedBy</label>
+                            <input asp-for="LastModifiedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="text-align:center">
+                            <input type="submit" value="submit" class="sbmit" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

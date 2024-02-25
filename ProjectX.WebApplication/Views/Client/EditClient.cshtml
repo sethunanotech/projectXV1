@@ -1,0 +1,56 @@
+﻿@model ProjectX.Application.Usecases.Clients.ClientUpdateRequest
+
+
+<html>
+<link href="~/css/Webform.css" rel="stylesheet" />
+<body>
+    <center style="font-size:30px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">CLIENT</center>
+
+    <a asp-action="IndexClient" style="padding:10px;
+	border-radius: 11px;
+	box-shadow: 4px 3px 2px darkgrey;
+	background: white;">
+        Back to Index
+    </a>
+    <div class="card">
+        <div class="card-body">
+            <div class="containers">
+                <div class="text">
+                    Update Client
+                </div>
+                <form asp-action="EditClient" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <input type="text" asp-for="Name" required>
+                            <div class="underline"></div>
+                            <label asp-for="Name">Name</label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="input-data">
+                            <input asp-for="Address" type="text" required>
+                            <div class="underline"></div>
+                            <label asp-for="Address">Address</label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-data">
+                            <label asp-for="LastModifiedBy" style="margin-bottom:31px!important;font-size: 14px;
+	                    	color: #3498db;">ModifiedBy</label>
+                            <input asp-for="LastModifiedBy" type="text" value=@ViewBag.UserName readonly>
+                        </div>
+                        <div class="input-data" style="text-align:center">
+                            <button type="submit" value="submit" class="sbmit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
